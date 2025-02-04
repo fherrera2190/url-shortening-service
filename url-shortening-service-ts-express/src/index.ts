@@ -1,17 +1,13 @@
-import express, { Express, Request, Response } from "express";
-
+import express, { Express } from "express";
+import shortenRoutes from "./routes/shorten.routes";
 const app: Express = express();
+
 app.use(express.json());
 
 const PORT: number = 3000;
 
-app.get("/ping", (_req: Request, res: Response) => {
-
-  res.send("NE   asMESIS");
-});
+app.use("/shorten", shortenRoutes);
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
-
-
