@@ -5,7 +5,8 @@ const routes: Router = Router();
 routes.get("/", (_req: Request, res: Response) => {
   res.send("User");
 });
-routes.post("/", (_req: Request, res: Response) => {
+routes.post("/", (req: Request, res: Response) => {
+  console.log(req.body);
   res.send("User");
 });
 
