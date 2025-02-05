@@ -1,16 +1,31 @@
 import { PrismaClient } from "@prisma/client";
-import { Request, Response } from "express";
+import crypto from "crypto";
 
 const prisma = new PrismaClient();
 
-const findAll = async (req: Request, res: Response) => {
-  try {
-    const urls = await prisma.url.findMany({});
-  } catch (error) {
-    console.log(error);
-  }
+const findByShortCode = async (findShortCode: string) => {
+  const urls = await prisma.url.findFirst({
+    where: {
+      shortCode: findShortCode,
+    },
+  });
+
+  if (!urls) throw { message: "Short code not found", statusCode: 404 };
+  return urls;
 };
 
-const create = async (req: Request, res: Response) => {
+const create = async (url: string) => {
+  const result = await prisma.url.create({
+    data: {
+      url,
+      shortCode: crypto.randomBytes(4).toString("hex"),
+      accessCount: 0,
+    },
+  });
+  return result;
+};
 
+export const urlServices = {
+  findByShortCode,
+  create,
 };

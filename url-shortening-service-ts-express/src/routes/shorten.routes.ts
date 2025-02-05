@@ -1,21 +1,23 @@
 import { Request, Response, Router } from "express";
+import { urlValidation } from "../middlewares/url.validation";
+import { urlController } from "../controllers/url.controller";
 
-const routes: Router = Router();
+const shortenRoutes: Router = Router();
 
-routes.get("/", (_req: Request, res: Response) => {
-  res.send("User");
-});
-routes.post("/", (req: Request, res: Response) => {
-  console.log(req.body);
-  res.send("User");
-});
+shortenRoutes.get("/:shortCode", urlController.findByShortCode);
 
-routes.patch("/", (_req: Request, res: Response) => {
-  res.send("User");
-});
+shortenRoutes.post("/", urlValidation, urlController.create);
 
-routes.delete("/", (_req: Request, res: Response) => {
+shortenRoutes.patch("/", (_req: Request, res: Response) => {
   res.send("User");
 });
 
-export default routes;
+shortenRoutes.delete("/", (_req: Request, res: Response) => {
+  res.send("User");
+});
+
+shortenRoutes.get("*", (_req: Request, res: Response) => {
+  res.send("User");
+});
+
+export default shortenRoutes;

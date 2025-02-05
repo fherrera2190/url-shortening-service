@@ -14,9 +14,10 @@ datasource db {
 }
 
 model Url {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  url       String
-  shortCode String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  url         String
+  shortCode   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  accessCount Int
 }
