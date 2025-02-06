@@ -9,7 +9,6 @@ const findByShortCode = async (findShortCode: string) => {
       shortCode: findShortCode,
     },
   });
-
   if (!urls) throw { message: "Short code not found", statusCode: 404 };
   return urls;
 };
@@ -25,7 +24,22 @@ const create = async (url: string) => {
   return result;
 };
 
+const update = async( shortCode: string,) => {
+  
+}
+
+const deleteUrl = async (shortCode: string) => {
+  const url = await findByShortCode(shortCode);
+  const result = await prisma.url.delete({
+    where: {
+      id: url.id,
+    },
+  });
+  return result;
+};
+
 export const urlServices = {
   findByShortCode,
   create,
+  deleteUrl,
 };

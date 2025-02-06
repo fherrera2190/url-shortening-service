@@ -31,4 +31,17 @@ const findByShortCode = async (
   }
 };
 
-export const urlController = { create, findByShortCode };
+const deleteUrl = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const shortCode = req.params.shortCode.trim();
+    if (!shortCode)
+      throw { message: "Short code is required", statusCode: 400 };
+
+    const result = await urlServices.deleteUrl(shortCode);
+    res.status(200).send(result);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const urlController = { create, findByShortCode, deleteUrl };

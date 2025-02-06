@@ -12,9 +12,7 @@ shortenRoutes.patch("/", (_req: Request, res: Response) => {
   res.send("User");
 });
 
-shortenRoutes.delete("/", (_req: Request, res: Response) => {
-  res.send("User");
-});
+shortenRoutes.delete("/:shortCode", urlController.deleteUrl);
 
 shortenRoutes.get("*", (_req: Request, res: Response) => {
   res.send("User");
